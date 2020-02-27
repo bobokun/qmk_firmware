@@ -70,3 +70,4 @@ id_rsa_*
 
 # python things
 __pycache__
+keyboards/crkbd/keymaps/bobokun/gitupdate.sh
