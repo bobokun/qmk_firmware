@@ -9,7 +9,6 @@ extern rgblight_config_t rgblight_config;
 extern rgb_config_t rgb_matrix_config;
 #endif
 
-extern uint8_t is_master;
 
 
 #ifdef OLED_DRIVER_ENABLE
@@ -166,7 +165,7 @@ void matrix_init_user(void) {
 
 #ifdef OLED_DRIVER_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    if (is_master) {
+    if (is_keyboard_master()) {
         return OLED_ROTATION_270;  // flips the display 270 degrees if master
     }
     return rotation;
@@ -286,7 +285,7 @@ void oled_task_user(void) {
 #    endif
 
     update_log();
-    if (is_master) {
+    if (is_keyboard_master()) {
         render_status_main();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     } else {
         render_status_secondary();
@@ -414,7 +413,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
               add_keylog(keycode);
       #endif
       #ifndef SPLIT_KEYBOARD
-              if (keycode == RESET && !is_master) {
+              if (keycode == RESET && !is_keyboard_master()) {
                   return false;
               }
       #endif
