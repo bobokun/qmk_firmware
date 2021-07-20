@@ -3,8 +3,8 @@
 #   the appropriate keymap folder that will get included automatically
 #
 BOOTMAGIC_ENABLE           = no  # Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE            = yes  # Mouse keys(+4700)
-EXTRAKEY_ENABLE            = yes # Audio control and System control(+450)
+MOUSEKEY_ENABLE            = no  # Mouse keys(+4700)
+EXTRAKEY_ENABLE            = no # Audio control and System control(+450)
 CONSOLE_ENABLE             = no  # Console for debug(+400)
 COMMAND_ENABLE             = no  # Commands for debug and configuration
 NKRO_ENABLE                = yes # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
@@ -15,7 +15,7 @@ UNICODE_ENABLE             = no  # Unicode
 BLUETOOTH_ENABLE           = no  # Enable Bluetooth with the Adafruit EZ-Key HID
 RGBLIGHT_ENABLE            = no  # Enable WS2812 RGB underlight.
 SWAP_HANDS_ENABLE          = no  # Enable one-hand typing
-TAP_DANCE_ENABLE 		   = yes # Enable double tapping function
+TAP_DANCE_ENABLE 		   = no # Enable double tapping function
 RGB_MATRIX_ENABLE 		   = yes
 RGB_MATRIX_DRIVER 		   = WS2812
 
@@ -25,3 +25,11 @@ SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 OLED_DRIVER_ENABLE = yes
 
 EXTRAFLAGS += -flto
+
+WPM_ENABLE = yes
+LTO_ENABLE = yes
+
+#Debug options
+VERBOSE = no
+CONSOLE_ENABLE = no
+COMMAND_ENABLE = no
