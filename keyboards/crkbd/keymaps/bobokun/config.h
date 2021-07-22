@@ -88,7 +88,7 @@ along with this program.  If not see <http://www.gnu.org/licenses/>.
 #    define DISABLE_RGB_MATRIX_ALPHAS_MODS         // Static dual hue, speed is hue for secondary hue
 #    define DISABLE_RGB_MATRIX_GRADIENT_UP_DOWN    // Static gradient top to bottom, speed controls how much gradient changes
 #    define DISABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT    // Static gradient left to right, speed controls how much gradient changes
-// #    define DISABLE_RGB_MATRIX_BREATHING           // Single hue brightness cycling animation
+//#    define DISABLE_RGB_MATRIX_BREATHING           // Single hue brightness cycling animation
 #    define DISABLE_RGB_MATRIX_BAND_SAT        // Single hue band fading saturation scrolling left to right
 #    define DISABLE_RGB_MATRIX_BAND_VAL        // Single hue band fading brightness scrolling left to right
 #    define DISABLE_RGB_MATRIX_BAND_PINWHEEL_SAT   // Single hue 3 blade spinning pinwheel fades saturation
@@ -108,7 +108,7 @@ along with this program.  If not see <http://www.gnu.org/licenses/>.
 #    define DISABLE_RGB_MATRIX_RAINBOW_PINWHEELS   // Full dual gradients spinning two halfs of keyboard
 #    define DISABLE_RGB_MATRIX_RAINDROPS           // Randomly changes a single key's hue
 #    define DISABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS // Randomly changes a single key's hue and saturation
-// #    define DISABLE_RGB_MATRIX_TYPING_HEATMAP      // How hot is your WPM!
+//#    define DISABLE_RGB_MATRIX_TYPING_HEATMAP      // How hot is your WPM!
 #    define DISABLE_RGB_MATRIX_DIGITAL_RAIN        // That famous computer simulation
 #    define DISABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE   // Pulses keys hit to hue & value then fades value out
 #    define DISABLE_RGB_MATRIX_SOLID_REACTIVE      // Static single hue, pulses keys hit to shifted hue then fades to current hue
