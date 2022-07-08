@@ -551,9 +551,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         switch (get_highest_layer(layer_state)) {
             case _LOWER:
                 if (clockwise) {
-                    tap_code(KC_UP);
-                } else {
                     tap_code(KC_DOWN);
+                } else {
+                    tap_code(KC_UP);
                 }
                 break;
             case _RAISE:
@@ -562,27 +562,27 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                         is_win_snap_active = true;
                         register_code(KC_LGUI);
                     }
-                    tap_code16(KC_LEFT);
+                    tap_code16(KC_RIGHT);
                 } else {
                     if (!is_win_snap_active) {
                         is_win_snap_active = true;
                         register_code(KC_LGUI);
                     }
-                    tap_code16(KC_RIGHT);
+                    tap_code16(KC_LEFT);
                 }
                 break;
             case _ADJUST:
                 if (clockwise) {
-                    rgblight_decrease_val();
-                } else {
                     rgblight_increase_val();
+                } else {
+                    rgblight_decrease_val();
                 }
                 break;
             default:
                 if (clockwise) {
-                    tap_code(KC_PGUP);
-                } else {
                     tap_code(KC_PGDOWN);
+                } else {
+                    tap_code(KC_PGUP);
                 }
                 break;
             }
