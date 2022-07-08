@@ -12,8 +12,16 @@
 //#define USE_SERIAL_PD2
 
 #define TAPPING_FORCE_HOLD
-#define TAPPING_TERM 100
+#ifdef TAPPING_TERM
+    #undef TAPPING_TERM
+    #define TAPPING_TERM 100
+#endif
 #define ENCODER_DIRECTION_FLIP
+
+#define RGBLIGHT_SLEEP
+//
+#define RGBLIGHT_LAYERS
+
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D3
