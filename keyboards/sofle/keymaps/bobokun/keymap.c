@@ -13,6 +13,7 @@ bool is_win_snap_active = false; // ADD this near the begining of keymap.c
 enum sofle_layers {
     /* _M_XYZ = Mac Os, _W_XYZ = Win/Linux */
     _QWERTY,
+    _DJMAX,
     _LOWER,
     _RAISE,
     _ADJUST,
@@ -20,6 +21,7 @@ enum sofle_layers {
 
 enum custom_keycodes {
     KC_QWERTY = SAFE_RANGE,
+    KC_DJMAX,
     KC_LOWER,
     KC_RAISE,
     KC_ADJUST,
@@ -101,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | RESET|      |QWERTY|      |      |      |                    |      |      |      |      |      |      |
+ * | RESET|      |QWERTY|      |      |      |                    | DJMAX|      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |      |      |MACWIN|      |      |      |-------.    ,-------|      | VOLDO| MUTE | VOLUP|      |      |
  * |------+------+------+------+------+------|RGB_TOG|    |RGB_TOG|------+------+------+------+------+------|
@@ -112,12 +114,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *            `----------------------------------'           '------''---------------------------'
  */
   [_ADJUST] = LAYOUT( \
-  RESET, XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+  RESET, XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,                     KC_DJMAX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, CG_TOGG, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
   RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX, XXXXXXX,                     XXXXXXX, KC_VOLD, KC_MUTE, KC_VOLU, XXXXXXX, XXXXXXX, \
   RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, XXXXXXX, KC_MPLY,     RGB_TOG, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX, \
                    _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______ \
+  ),
+
+  [_DJMAX] = LAYOUT( \
+  KC_GESC, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,                    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_QWERTY, \
+  KC_TAB,   KC_F1,   KC_F10,    KC_E,   KC_E,     KC_1,                        KC_2,    KC_I,    KC_I, XXXXXXX, KC_PGUP, XXXXXXX, \
+  KC_TAB,   KC_F9,     KC_S,    KC_D,   KC_F,  XXXXXXX,                       KC_F5,    KC_J,    KC_K,    KC_L, KC_PGDN, KC_DEL, \
+  KC_LSFT,  KC_F8, XXXXXXX, XXXXXXX, KC_LALT,  XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, KC_RALT, XXXXXXX, XXXXXXX, XXXXXXX, KC_RSFT, \
+                   _______, _______, KC_SPC, KC_LCTL, KC_LOWER,     KC_RAISE, KC_RCTL , KC_ENT , _______, _______ \
   )
+
 };
 
 
@@ -372,6 +383,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 layer_off(_ADJUST);
             }
             return false;
+        case KC_DJMAX:
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(_DJMAX);
+            }
+            return false;
+
+
         case KC_PRVWD:
             if (record->event.pressed) {
                 if (keymap_config.swap_lctl_lgui) {
@@ -540,9 +558,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         switch (get_highest_layer(layer_state)) {
             case _LOWER:
                 if (clockwise) {
-                    tap_code(KC_DOWN);
-                } else {
                     tap_code(KC_UP);
+                } else {
+                    tap_code(KC_DOWN);
                 }
                 break;
             case _RAISE:
