@@ -12,7 +12,7 @@ MIDI_ENABLE                = no  # MIDI controls
 AUDIO_ENABLE               = no  # Audio output on port C6
 UNICODE_ENABLE             = no  # Unicode
 BLUETOOTH_ENABLE           = no  # Enable Bluetooth with the Adafruit EZ-Key HID
-RGBLIGHT_ENABLE            = no  # Enable WS2812 RGB underlight.
+RGBLIGHT_ENABLE            = yes  # Enable WS2812 RGB underlight.
 SWAP_HANDS_ENABLE          = no  # Enable one-hand typing
 TAP_DANCE_ENABLE 		   = no  # Enable double tapping function
 ENCODER_ENABLE 			   = yes
@@ -30,7 +30,7 @@ OPT_DEFS += -DLEFTCAT
 
 EXTRAFLAGS += -flto
 
-WPM_ENABLE = yes
+WPM_ENABLE = no
 LTO_ENABLE = yes
 STENO_ENABLE = yes
 STENO_PROTOCOL = geminipr

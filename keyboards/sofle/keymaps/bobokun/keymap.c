@@ -153,6 +153,10 @@ KC_LSFT,  KC_F8, XXXXXXX, XXXXXXX, KC_LALT,  XXXXXXX, XXXXXXX,     XXXXXXX, XXXX
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (record->event.pressed) {
+        extern uint32_t oled_tap_timer;
+        oled_tap_timer = timer_read32();
+    }
     switch (keycode) {
         case KC_QWERTY:
             if (record->event.pressed) {
@@ -395,13 +399,6 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                     tap_code16(KC_LEFT);
                 }
                 break;
-            // case _ADJUST:
-            //     if (clockwise) {
-            //         rgblight_increase_val();
-            //     } else {
-            //         rgblight_decrease_val();
-            //     }
-            //     break;
             default:
                 if (clockwise) {
                     tap_code(KC_PGDN);
