@@ -9,6 +9,7 @@ enum sofle_layers {
     /* _M_XYZ = Mac Os, _W_XYZ = Win/Linux */
     _QWERTY = 0,
     _DJMAX,
+    _PLOVER,
     _LOWER,
     _RAISE,
     _ADJUST,
@@ -17,6 +18,7 @@ enum sofle_layers {
 enum custom_keycodes {
     KC_QWERTY = SAFE_RANGE,
     KC_DJMAX,
+    KC_PLOVER,
     KC_LOWER,
     KC_RAISE,
     KC_ADJUST,
@@ -96,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 /* ADJUST
  * ,-----------------------------------------.                    ,-----------------------------------------.
- * | RESET|      |      |      |      |MACWIN|                    |DJMAX |      |      |      |      |      |
+ * | RESET|      |      |      |      |MACWIN|                    |DJMAX |PLOVER|      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * | CAPS |      |      |      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
@@ -109,20 +111,44 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *            `----------------------------------'           '------''---------------------------'
  */
   [_ADJUST] = LAYOUT( \
-  QK_BOOT, XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX, CG_TOGG,                     KC_DJMAX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+  QK_BOOT, XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX, CG_TOGG,                   KC_DJMAX, KC_PLOVER, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
   KC_CAPS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
   RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX, XXXXXXX,                     XXXXXXX, KC_VOLD, KC_MUTE, KC_VOLU, XXXXXXX, XXXXXXX, \
   RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, XXXXXXX, KC_MPLY,     RGB_TOG, MAGIC_TOGGLE_NKRO, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX, \
                    _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______ \
   ),
 
-  [_DJMAX] = LAYOUT( \
-  QK_GESC, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,                    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_QWERTY, \
-  KC_TAB,   KC_F1,   KC_F10,    KC_E,   KC_E,     KC_1,                        KC_2,    KC_I,    KC_I, XXXXXXX, KC_PGUP, XXXXXXX, \
-  KC_TAB,   KC_F9,     KC_S,    KC_D,   KC_F,  XXXXXXX,                       KC_F5,    KC_J,    KC_K,    KC_L, KC_PGDN, KC_DEL, \
-  KC_LSFT,  KC_F8, XXXXXXX, XXXXXXX, KC_LALT,  XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, KC_RALT, XXXXXXX, XXXXXXX, XXXXXXX, KC_RSFT, \
-                   _______, _______, KC_SPC, KC_LCTL, KC_LOWER,     KC_RAISE, KC_RCTL , KC_ENT , _______, _______ \
-  )
+/*
+ * Plover layer (http://opensteno.org)
+ * ,-----------------------------------------.                    ,-----------------------------------------.
+ * |   #  |   #  |   #  |   #  |   #  |   #  |                    |   #  |   #  |   #  |   #  |   #  |  #   |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * |  FN  |   S  |   T  |   P  |   H  |   *  |                    |   *  |   F  |   P  |   L  |   T  |  D   |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * |      |   S  |   K  |   W  |   R  |   *  |-------.    ,-------|   *  |   R  |   B  |   G  |   S  |  Z   |
+ * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
+ * |      |      |      |      |      |      |-------|    |-------|      |      |      |      |      |      |
+ * `-----------------------------------------/       /     \      \-----------------------------------------'
+ *            | EXIT |  PWR |  A   |   O  | / LOWER /       \ RAISE\  |   E  |  U   | RES1 | RES2 |
+ *            |      |      |      |      |/       /         \      \ |      |      |      |      |
+ *            `----------------------------------'           '------''---------------------------'
+ */
+
+[_PLOVER] = LAYOUT( \
+    STN_N1,  STN_N2,  STN_N3,  STN_N4,  STN_N5,  STN_N6,                STN_N7,  STN_N8,  STN_N9,  STN_NA,  STN_NB,  STN_NC , \
+    STN_FN,  STN_S1,  STN_TL,  STN_PL,  STN_HL,  STN_ST1,               STN_ST3, STN_FR,  STN_PR,  STN_LR,  STN_TR,  STN_DR , \
+    XXXXXXX, STN_S2,  STN_KL,  STN_WL,  STN_RL,  STN_ST2,               STN_ST4, STN_RR,  STN_BR,  STN_GR,  STN_SR,  STN_ZR , \
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+                    KC_QWERTY, STN_PWR, STN_A, STN_O, KC_LOWER,       KC_RAISE,  STN_E, STN_U,  STN_RE1, STN_RE2 \
+),
+
+[_DJMAX] = LAYOUT( \
+QK_GESC, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,                    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_QWERTY, \
+KC_TAB,   KC_F1,   KC_F10,    KC_E,   KC_E,     KC_1,                        KC_2,    KC_I,    KC_I, XXXXXXX, KC_PGUP, XXXXXXX, \
+KC_TAB,   KC_F9,     KC_S,    KC_D,   KC_F,  XXXXXXX,                       KC_F5,    KC_J,    KC_K,    KC_L, KC_PGDN, KC_DEL, \
+KC_LSFT,  KC_F8, XXXXXXX, XXXXXXX, KC_LALT,  XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, KC_RALT, XXXXXXX, XXXXXXX, XXXXXXX, KC_RSFT, \
+                _______, _______, KC_SPC, KC_LCTL, KC_LOWER,     KC_RAISE, KC_RCTL , KC_ENT , _______, _______ \
+)
 
 };
 
@@ -174,6 +200,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_DJMAX:
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_DJMAX);
+            }
+            return false;
+        case KC_PLOVER:
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(_PLOVER);
             }
             return false;
         case KC_PRVWD:
@@ -364,13 +395,13 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                     tap_code16(KC_LEFT);
                 }
                 break;
-            case _ADJUST:
-                if (clockwise) {
-                    rgblight_increase_val();
-                } else {
-                    rgblight_decrease_val();
-                }
-                break;
+            // case _ADJUST:
+            //     if (clockwise) {
+            //         rgblight_increase_val();
+            //     } else {
+            //         rgblight_decrease_val();
+            //     }
+            //     break;
             default:
                 if (clockwise) {
                     tap_code(KC_PGDN);

@@ -40,8 +40,11 @@ static void render_logo(void) {
             // oled_write_ln_P(PSTR("Qwrt"), false);
             oled_write_P(katakana, false);
             break;
-        case CMK:
+        case DJM:
             oled_write_ln_P(PSTR(" DJMX"), false);
+            break;
+        case PLV:
+            oled_write_ln_P(PSTR(" PLVR"), false);
             break;
         default:
             oled_write_P(PSTR("Undef"), false);
