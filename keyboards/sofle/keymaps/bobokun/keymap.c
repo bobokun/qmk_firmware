@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,  KC_BSPC, \
   KC_LCTL,  KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN,  KC_QUOT, \
   KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_MUTE,  KC_WFWD , KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RSFT, \
-                 KC_LGUI,KC_LALT,KC_LCTRL, KC_SPC, KC_LOWER,      KC_RAISE,  KC_ENT, KC_RCTRL, KC_RALT, KC_RGUI \
+                 KC_LGUI,KC_LALT,KC_LCTL, KC_SPC, KC_LOWER,      KC_RAISE,  KC_ENT, KC_RCTL, KC_RALT, KC_RGUI \
 ),
 /* LOWER
  * ,-----------------------------------------.                    ,-----------------------------------------.
@@ -102,22 +102,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |RGB_TOG| HUI | SAI  | VAI  |      |      |-------.    ,-------|      | VOLDO| MUTE | VOLUP|      |      |
  * |------+------+------+------+------+------| MPLY  |    |RGB_TOG|------+------+------+------+------+------|
- * |RGB_MOD| HUD | SAD  | VAD  |      |      |-------|    |-------|      | PREV | PLAY | NEXT |      |      |
+ * |RGB_MOD| HUD | SAD  | VAD  |      |      |-------|    |-------|T_NKRO| PREV | PLAY | NEXT |      |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *            | LGUI | LAlt | LCTR |Space | /LOWER  /       \RAISE \  |Enter | RCTR | RAlt | RGUI |
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
  *            `----------------------------------'           '------''---------------------------'
  */
   [_ADJUST] = LAYOUT( \
-  RESET, XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX, CG_TOGG,                     KC_DJMAX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+  QK_BOOT, XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX, CG_TOGG,                     KC_DJMAX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
   KC_CAPS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
   RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX, XXXXXXX,                     XXXXXXX, KC_VOLD, KC_MUTE, KC_VOLU, XXXXXXX, XXXXXXX, \
-  RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, XXXXXXX, KC_MPLY,     RGB_TOG, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX, \
+  RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, XXXXXXX, KC_MPLY,     RGB_TOG, MAGIC_TOGGLE_NKRO, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX, \
                    _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______ \
   ),
 
   [_DJMAX] = LAYOUT( \
-  KC_GESC, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,                    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_QWERTY, \
+  QK_GESC, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,                    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_QWERTY, \
   KC_TAB,   KC_F1,   KC_F10,    KC_E,   KC_E,     KC_1,                        KC_2,    KC_I,    KC_I, XXXXXXX, KC_PGUP, XXXXXXX, \
   KC_TAB,   KC_F9,     KC_S,    KC_D,   KC_F,  XXXXXXX,                       KC_F5,    KC_J,    KC_K,    KC_L, KC_PGDN, KC_DEL, \
   KC_LSFT,  KC_F8, XXXXXXX, XXXXXXX, KC_LALT,  XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, KC_RALT, XXXXXXX, XXXXXXX, XXXXXXX, KC_RSFT, \
@@ -176,8 +176,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 set_single_persistent_default_layer(_DJMAX);
             }
             return false;
-
-
         case KC_PRVWD:
             if (record->event.pressed) {
                 if (keymap_config.swap_lctl_lgui) {
@@ -375,7 +373,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 break;
             default:
                 if (clockwise) {
-                    tap_code(KC_PGDOWN);
+                    tap_code(KC_PGDN);
                 } else {
                     tap_code(KC_PGUP);
                 }
