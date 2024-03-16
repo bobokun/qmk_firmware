@@ -16,10 +16,10 @@
         render_mod_status();
    4 Add the font file reference into `config.h`:
         #define OLED_FONT_H "oledfont.c"
-   5 Add your layer numbers for NUM, SYM, and FNC. Example:
-        #define NUM 1
-        #define SYM 2
-        #define FNC 3
+   5 Add your layer numbers for LOWER, RAISE, and ADJUST. Example:
+        #define LOWER 1
+        #define RAISE 2
+        #define ADJUST 3
 */
 
 #include QMK_KEYBOARD_H
@@ -40,11 +40,8 @@ static void render_logo(void) {
             // oled_write_ln_P(PSTR("Qwrt"), false);
             oled_write_P(katakana, false);
             break;
-        case DJM:
+        case DJMAX:
             oled_write_ln_P(PSTR(" DJMX"), false);
-            break;
-        case PLV:
-            oled_write_ln_P(PSTR(" PLVR"), false);
             break;
         default:
             oled_write_P(PSTR("Undef"), false);
@@ -71,23 +68,26 @@ static void render_layer_state(uint8_t const state) {
 		0x20, 0xdd, 0xde, 0xdf, 0x20, 0};
 
 	switch(state) {
-	case FNC: oled_write_P(func_layer, false); break;
-	case SYM: oled_write_P(symb_layer, false); break;
-	case NUM: oled_write_P(numb_layer, false); break;
+	case ADJUST: oled_write_P(func_layer, false); break;
+	case RAISE: oled_write_P(symb_layer, false); break;
+	case LOWER: oled_write_P(numb_layer, false); break;
 	default:  oled_write_P(base_layer, false);
 	}
     switch (get_highest_layer(layer_state)) {
         case 0:
             oled_write_P(PSTR("     "), false);
             break;
-        case NUM:
+        case LOWER:
             oled_write_P(PSTR("Lower"), false);
             break;
-        case SYM:
+        case RAISE:
             oled_write_P(PSTR("Raise"), false);
             break;
-        case FNC:
+        case ADJUST:
             oled_write_P(PSTR(" Adj\n"), false);
+            break;
+        case PLOVER:
+            oled_write_P(PSTR("PLOVR"), false);
             break;
         default:
             oled_write_ln_P(PSTR("Undef"), false);
@@ -172,13 +172,13 @@ static void render_ctrl_shift(uint8_t const ctrl, uint8_t const shift) {
 	oled_write_P(shift ? shift_on_2 : shift_off_2, false);
 }
 
-static void render_mac_win(void) {
-    if (keymap_config.swap_lctl_lgui) {
-        oled_write_ln_P(PSTR(" MAC"), false);
-    } else {
-        oled_write_ln_P(PSTR(" WIN"), false);
-    }
-}
+// static void render_mac_win(void) {
+//     if (keymap_config.swap_lctl_lgui) {
+//         oled_write_ln_P(PSTR(" MAC"), false);
+//     } else {
+//         oled_write_ln_P(PSTR(" WIN"), false);
+//     }
+// }
 
 
 // Primary modifier status display function
@@ -195,5 +195,5 @@ void render_mod_status(void) {
 	oled_set_cursor(0,11);
 	render_gui_alt(mods & MOD_MASK_GUI, mods & MOD_MASK_ALT);
 	render_ctrl_shift(mods & MOD_MASK_CTRL, mods & MOD_MASK_SHIFT || host_keyboard_led_state().caps_lock);
-    render_mac_win();
+    // render_mac_win();
 }

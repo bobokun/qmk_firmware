@@ -37,4 +37,5 @@ STENO_PROTOCOL = geminipr
 #Debug options
 VERBOSE = no
 CONSOLE_ENABLE = no # Console for debug(+400)
-COMMAND_ENABLE = no
+
+OS_DETECTION_ENABLE = yes

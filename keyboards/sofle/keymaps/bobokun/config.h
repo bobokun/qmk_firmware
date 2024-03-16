@@ -53,8 +53,16 @@
 #define SPLIT_LAYER_STATE_ENABLE
 #define OLED_FONT_H "oled/oledfont.c"
 
-#define DJM 1
-#define PLV 2
-#define NUM 3
-#define SYM 4
-#define FNC 5
+#define OS_DETECTION_DEBOUNCE 200
+
+#define PLOVER 1
+#define DJMAX 2
+#define LOWER 3
+#define RAISE 4
+#define ADJUST 5
+
+
+// SAVE SPACE
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION
+#define NO_ACTION_TAPPING
